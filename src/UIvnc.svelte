@@ -48,7 +48,8 @@ export let noVNC_transition_text:any
 export let noVNC_verify_server_dlg:any
 export let noVNC_credentials_dlg:any
 export let noVNC_control_bar_anchor:any
-export let noVNC_control_bar_hint:any
+export let noVNC_control_bar_hint_left:any
+export let noVNC_control_bar_hint_right:any
 export let noVNC_Element:any
 export let noVNC_settings:any
 export let noVNC_power:any
@@ -168,7 +169,8 @@ async function loadModules() {
         noVNC_verify_server_dlg,
         noVNC_credentials_dlg,
         noVNC_control_bar_anchor,
-        noVNC_control_bar_hint,
+        noVNC_control_bar_hint_left,
+        noVNC_control_bar_hint_right,
         noVNC_Element,
         noVNC_settings,
         noVNC_power,
@@ -766,12 +768,14 @@ onMount(async ()=>{
         openControlbar() {
             if(!noVNC_control_bar) return
             noVNC_control_bar.classList.add("noVNC_open");
+            noVNC_control_bar_handle.classList.add("noVNC_open");
         },
 
         closeControlbar() {
             if (!UI.rfb || !noVNC_control_bar) return;
             UI.closeAllPanels();
             noVNC_control_bar.classList.remove("noVNC_open");
+            noVNC_control_bar_handle.classList.remove("noVNC_open");
             UI.rfb.focus();
         },
 
@@ -799,9 +803,19 @@ onMount(async ()=>{
             if (anchor.classList.contains("noVNC_right")) {
                 WebUtil.writeSetting('controlbar_pos', 'left');
                 anchor.classList.remove("noVNC_right");
+                bar.classList.remove("noVNC_right");
+                noVNC_control_bar_handle.classList.remove("noVNC_right");
+                noVNC_modifiers.classList.remove("noVNC_right")
+                noVNC_clipboard.classList.remove("noVNC_right")
+                noVNC_settings.classList.remove("noVNC_right")
             } else {
                 WebUtil.writeSetting('controlbar_pos', 'right');
                 anchor.classList.add("noVNC_right");
+                bar.classList.add("noVNC_right");
+                noVNC_control_bar_handle.classList.add("noVNC_right");
+                noVNC_modifiers.classList.add("noVNC_right")
+                noVNC_clipboard.classList.add("noVNC_right")
+                noVNC_settings.classList.add("noVNC_right")
             }
 
             // Consider this a movement of the handle
@@ -812,7 +826,10 @@ onMount(async ()=>{
         },
 
         showControlbarHint(show:boolean, animate=true) {
-            const hint = noVNC_control_bar_hint;
+            let hint
+
+            if(noVNC_control_bar_anchor.classList.contains("noVNC_right")) hint = noVNC_control_bar_hint_left
+            else hint = noVNC_control_bar_hint_right
 
             if (animate) {
                 hint.classList.remove("noVNC_notransition");
@@ -823,7 +840,8 @@ onMount(async ()=>{
             if (show) {
                 hint.classList.add("noVNC_active");
             } else {
-                hint.classList.remove("noVNC_active");
+                noVNC_control_bar_hint_left.classList.remove("noVNC_active");
+                noVNC_control_bar_hint_right.classList.remove("noVNC_active");
             }
         },
 
@@ -926,12 +944,10 @@ onMount(async ()=>{
 
         controlbarHandleMouseDown(e:any) {
             if ((e.type == "mousedown") && (e.button != 0)) return;
-
             const ptr = getPointerEvent(e);
 
             const handle = noVNC_control_bar_handle
             const bounds = handle.getBoundingClientRect();
-
             // Touch events have implicit capture
             if (e.type === "mousedown") {
                 setCapture(handle);
