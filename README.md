@@ -47,6 +47,18 @@ import NoVNC from "svelte-vnc"
 * clearLocalStorage:boolean | null = null
 * resize:string | null = null;
 
+### Change Log
+WORKING RELASE:
+* v1.2.3 Cleared Unused files
+* v1.2.2 Removed Svg Images and embedded directly in css
+* v1.2.1 Fixed import with specific component name
+* v1.2.0 Fixed noVNC panel
+PRE-RELEASE:
+* v1.1.7-v.1.1.10 Fixed import types and broken versions
+* v1.1.6 Fixed some event listener
+* v1.1.0-1.1.5 Initial Release and testing
+
+
 ### noVNC Description
 
 noVNC is both a HTML VNC client JavaScript library and an application built on
