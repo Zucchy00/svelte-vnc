@@ -1,6 +1,6 @@
 {
   "name": "svelte-vnc",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "noVNC component for svelte 4 and 5 without using iframe. Supports multiple instances of itself enabling the user to visualize multiple vnc streams in the same page",
   "main": "build/index.js",
   "module": "build/index.mjs",
