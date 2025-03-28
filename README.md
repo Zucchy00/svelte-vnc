@@ -1,28 +1,28 @@
-## noVNC: HTML VNC client library and application
+# noVNC: HTML VNC client library and application
 
 [![Test Status](https://github.com/novnc/noVNC/workflows/Test/badge.svg)](https://github.com/novnc/noVNC/actions?query=workflow%3ATest)
 [![Lint Status](https://github.com/novnc/noVNC/workflows/Lint/badge.svg)](https://github.com/novnc/noVNC/actions?query=workflow%3ALint)
 
-### Description
+## Description
 
 noVNC component for svelte 4 and 5 without using iframe. Supports multiple instances of itself enabling the user to visualize multiple vnc streams in the same page.
 
-### INSTALL
+## INSTALL
 ```
 npm i svelte-vnc
 ```
 
-### IMPORT
+## IMPORT
 ```
 import NoVNC from "svelte-vnc"
 ```
 
-### USAGE
+## USAGE
 ```
 <NoVNC/>
 ```
 
-### PARAMETERS FOR THE COMPONENT
+## PARAMETERS FOR THE COMPONENT
 * isFullscreen:boolean = false
 * class:string = ""
 * style:string = ""
@@ -47,13 +47,13 @@ import NoVNC from "svelte-vnc"
 * clearLocalStorage:boolean | null = null
 * resize:string | null = null;
 
-### Change Log
-WORKING RELASE:
+## Change Log
+### WORKING RELASE:
 * v1.2.3 Cleared Unused files
 * v1.2.2 Removed Svg Images and embedded directly in css
 * v1.2.1 Fixed import with specific component name
 * v1.2.0 Fixed noVNC panel
-PRE-RELEASE:
+### PRE-RELEASE:
 * v1.1.7-v.1.1.10 Fixed import types and broken versions
 * v1.1.6 Fixed some event listener
 * v1.1.0-1.1.5 Initial Release and testing
