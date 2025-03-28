@@ -251,13 +251,13 @@ services.n6082.vnc
 Please see our other documents for how to integrate noVNC in your own software,
 or deploying the noVNC application in production environments:
 
-* [Embedding](docs/EMBEDDING.md) - For the noVNC application
-* [Library](docs/LIBRARY.md) - For the noVNC JavaScript library
+* [Embedding](https://github.com/novnc/noVNC/docs/EMBEDDING.md) - For the noVNC application
+* [Library](https://github.com/novnc/noVNC/docs/LIBRARY.md) - For the noVNC JavaScript library
 
 
 ### Authors/Contributors
 
-See [AUTHORS](AUTHORS) for a (full-ish) list of authors.  If you're not on
+See [AUTHORS](https://github.com/novnc/noVNC/AUTHORS) for a (full-ish) list of authors.  If you're not on
 that list and you think you should be, feel free to send a PR to fix that.
 
 * Core team:
