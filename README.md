@@ -50,7 +50,7 @@ import NoVNC from "svelte-vnc"
 ## Change Log
 ### WORKING RELASE:
 * v1.2.5 Fixed Readme
-* v1.2.5 Fixed Readme
+* v1.2.4 Fixed Readme
 * v1.2.3 Cleared Unused files
 * v1.2.2 Removed Svg Images and embedded directly in css
 * v1.2.1 Fixed import with specific component name
