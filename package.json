@@ -1,13 +1,13 @@
 {
   "name": "svelte-vnc",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "noVNC component for svelte 4 and 5 without using iframe. Supports multiple instances of itself enabling the user to visualize multiple vnc streams in the same page",
   "main": "build/index.js",
   "module": "build/index.mjs",
   "svelte": "./src/index.mjs",
   "scripts": {
-      "build": "rollup -c",
-      "dev": "rollup -c -w"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "exports": {
     "import": "./src/index.mjs",
@@ -18,7 +18,14 @@
     "type": "git",
     "url": "https://github.com/Zucchy00/svelte-vnc.git"
   },
-  "keywords": ["noVNC", "Svelte", "vnc", "websocket", "remote-desktop", "svelte-vnc"],
+  "keywords": [
+    "noVNC",
+    "Svelte",
+    "vnc",
+    "websocket",
+    "remote-desktop",
+    "svelte-vnc"
+  ],
   "author": "daniele_zucchelli",
   "license": "ISC",
   "devDependencies": {
