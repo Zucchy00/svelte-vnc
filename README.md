@@ -7,22 +7,22 @@
 
 noVNC component for svelte 4 and 5 without using iframe. Supports multiple instances of itself enabling the user to visualize multiple vnc streams in the same page.
 
-## INSTALL
+## Install
 ```
 npm i svelte-vnc
 ```
 
-## IMPORT
+## Import
 ```
 import NoVNC from "svelte-vnc"
 ```
 
-## USAGE
+## Usage
 ```
 <NoVNC/>
 ```
 
-## PARAMETERS FOR THE COMPONENT
+## Parameters for the component
 * isFullscreen:boolean = false
 * class:string = ""
 * style:string = ""
