@@ -27,6 +27,7 @@ declare module 'svelte-vnc' {
       controlbar_pos?: string | null;
       clearLocalStorage?: boolean | null;
       resize?: string | null;
+      embedded_server?: boolean | null;
     }>;
   }
   

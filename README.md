@@ -23,9 +23,9 @@ import NoVNC from "svelte-vnc"
 ```
 
 ## Parameters for the component
-* isFullscreen:boolean = false
-* class:string = ""
-* style:string = ""
+* isFullscreen:boolean = false;
+* class:string = "";
+* style:string = "";
 * logging:boolean | null = null;
 * host:string | null = null;
 * port:string | null= null;
@@ -44,11 +44,14 @@ import NoVNC from "svelte-vnc"
 * reconnect:boolean | null = null;
 * reconnect_delay:number | null = null;
 * controlbar_pos:string | null = null;
-* clearLocalStorage:boolean | null = null
+* clearLocalStorage:boolean | null = null;
 * resize:string | null = null;
+* embedded_server:boolean | null = null;
 
 ## Change Log
 ### WORKING RELASE:
+* v2.0.1 Fixed component parameters
+* v2.0.0 Embedded compability with local websockify server in hooks.server.ts [Github](https://github.com/Zucchy00/svelte-websockify)
 * v1.2.5 Fixed Readme
 * v1.2.4 Fixed Readme
 * v1.2.3 Cleared Unused files

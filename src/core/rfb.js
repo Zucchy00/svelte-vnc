@@ -119,6 +119,8 @@ export default class RFB extends EventTargetMixin {
         this._shared = 'shared' in options ? !!options.shared : true;
         this._repeaterID = options.repeaterID || '';
         this._wsProtocols = options.wsProtocols || [];
+        this._embedded = options.embedded || false;
+        this._host_target = options.target || {};
 
         // Internal state
         this._rfbConnectionState = '';
@@ -556,7 +558,7 @@ export default class RFB extends EventTargetMixin {
 
         if (this._url) {
             Log.Info(`connecting to ${this._url}`);
-            this._sock.open(this._url, this._wsProtocols);
+            this._sock.open(this._url, this._wsProtocols, this._embedded, this._host_target);
         } else {
             Log.Info(`attaching ${this._rawChannel} to Websock`);
             this._sock.attach(this._rawChannel);

@@ -49,6 +49,7 @@
     export let controlbar_pos:string | null = null;
     export let clearLocalStorage:boolean | null = null
     export let resize:string | null = null;
+    export let embedded_server:boolean | null = null;
 
     // CONNECTION STATUS
     let connection_status:string = ""
@@ -67,6 +68,7 @@
     let noVNC_toggle_extra_keys_button:any
     let noVNC_toggle_ctrl_button:any
     let noVNC_toggle_windows_button:any
+    let noVNC_toggle_embedded:any
     let noVNC_toggle_alt_button:any
     let noVNC_send_tab_button:any
     let noVNC_send_esc_button:any
@@ -117,6 +119,7 @@
     let noVNC_setting_reconnect:any
     let noVNC_setting_reconnect_delay:any
     let noVNC_setting_show_dot:any
+    let noVNC_setting_embedded_server:any
     let advanced_expander:any
     let websocket_expander:any
 
@@ -149,7 +152,7 @@
                 settingsList[key] = value;
             }
         });
-
+        
         if (Object.keys(settingsList).length === 0) {
             settingsList = { ...defaults };
         }
@@ -157,6 +160,7 @@
         await UI.start({ settings: { defaults: settingsList,
                 mandatory: mandatory } });
         if(isFullscreen) fullscreen(true)
+        if(embedded_server) noVNC_setting_embedded_server = true
     }
 
     function fullscreen(wantFullscreen: boolean) {
@@ -2240,6 +2244,7 @@ select[size]:not([size="1"]) option, select[multiple] option {
     bind:noVNC_toggle_extra_keys_button
     bind:noVNC_toggle_ctrl_button
     bind:noVNC_toggle_windows_button
+    bind:noVNC_toggle_embedded
     bind:noVNC_toggle_alt_button
     bind:noVNC_send_tab_button
     bind:noVNC_send_esc_button
@@ -2288,6 +2293,7 @@ select[size]:not([size="1"]) option, select[multiple] option {
     bind:noVNC_setting_reconnect
     bind:noVNC_setting_reconnect_delay
     bind:noVNC_setting_show_dot
+    bind:noVNC_setting_embedded_server
     bind:advanced_expander
     bind:websocket_expander
     bind:connection_status
@@ -2455,6 +2461,13 @@ select[size]:not([size="1"]) option, select[multiple] option {
                                             <input bind:this={noVNC_setting_encrypt} type="checkbox"
                                                    class="toggle">
                                             Encrypt
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            <input bind:this={noVNC_toggle_embedded} type="checkbox"
+                                                   class="toggle">
+                                            Embedded Server
                                         </label>
                                     </li>
                                     <li>

@@ -28,6 +28,7 @@ export let noVNC_toggle_extra_keys_button:any
 export let noVNC_toggle_ctrl_button:any
 export let noVNC_toggle_windows_button:any
 export let noVNC_toggle_alt_button:any
+export let noVNC_toggle_embedded:any
 export let noVNC_send_tab_button:any
 export let noVNC_send_esc_button:any
 export let noVNC_send_ctrl_alt_del_button:any
@@ -77,6 +78,7 @@ export let noVNC_setting_path:any
 export let noVNC_setting_reconnect:any
 export let noVNC_setting_reconnect_delay:any
 export let noVNC_setting_show_dot:any
+export let noVNC_setting_embedded_server:any
 export let advanced_expander:any
 export let websocket_expander:any
 
@@ -149,6 +151,7 @@ async function loadModules() {
         noVNC_toggle_ctrl_button,
         noVNC_toggle_windows_button,
         noVNC_toggle_alt_button,
+        noVNC_toggle_embedded,
         noVNC_send_tab_button,
         noVNC_send_esc_button,
         noVNC_send_ctrl_alt_del_button,
@@ -198,6 +201,7 @@ async function loadModules() {
         noVNC_setting_reconnect,
         noVNC_setting_reconnect_delay,
         noVNC_setting_show_dot,
+        noVNC_setting_embedded_server,
         advanced_expander,
         websocket_expander,
     }
@@ -1299,33 +1303,47 @@ onMount(async ()=>{
 
             let url;
 
-            if (host) {
-                url = new URL("https://" + host);
-
-                url.protocol = UI.getSetting('encrypt') ? 'wss:' : 'ws:';
-                if (port) {
-                    url.port = port;
-                }
-
-                // "./" is needed to force URL() to interpret the path-variable as
-                // a path and not as an URL. This is relevant if for example path
-                // starts with more than one "/", in which case it would be
-                // interpreted as a host name instead.
-                url = new URL("./" + path, url);
+            if (noVNC_setting_embedded_server) {
+                // Use the current location with WebSocket protocol
+                const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                url = new URL(`${protocol}//${window.location.host}/${path}`);
             } else {
-                // Current (May 2024) browsers support relative WebSocket
-                // URLs natively, but we need to support older browsers for
-                // some time.
-                url = new URL(path, location.href);
-                url.protocol = (window.location.protocol === "https:") ? 'wss:' : 'ws:';
+                if (host) {
+                    url = new URL("https://" + host);
+
+                    url.protocol = UI.getSetting('encrypt') ? 'wss:' : 'ws:';
+                    if (port) {
+                        url.port = port;
+                    }
+
+                    // "./" is needed to force URL() to interpret the path-variable as
+                    // a path and not as an URL. This is relevant if for example path
+                    // starts with more than one "/", in which case it would be
+                    // interpreted as a host name instead.
+                    url = new URL("./" + path, url);
+                } else {
+                    // Current (May 2024) browsers support relative WebSocket
+                    // URLs natively, but we need to support older browsers for
+                    // some time.
+                    url = new URL(path, location.href);
+                    url.protocol = (window.location.protocol === "https:") ? 'wss:' : 'ws:';
+                }
             }
 
             try {
                 UI.rfb = new RFB(noVNC_container,
                                 url.href,
-                                { shared: UI.getSetting('shared'),
-                                repeaterID: UI.getSetting('repeaterID'),
-                                credentials: { password: password } });
+                                { 
+                                    shared: UI.getSetting('shared'),
+                                    repeaterID: UI.getSetting('repeaterID'),
+                                    credentials: { password: password },
+                                    embedded: noVNC_setting_embedded_server,
+                                    target: {
+                                        host: host,
+                                        port: port,
+                                        type: "targetSetter"
+                                    }
+                                });
             } catch (exc) {
                 console.log("Failed to connect to server: " + exc);
                 UI.updateVisualState('disconnected');

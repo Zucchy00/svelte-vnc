@@ -61,7 +61,6 @@ export default class Websock {
         // called in init: this._sQ = new Uint8Array(this._sQbufferSize);
         this._sQlen = 0;
         this._sQ = null;  // Send queue
-
         this._eventHandlers = {
             message: () => {},
             open: () => {},
@@ -247,13 +246,12 @@ export default class Websock {
         this._websocket = null;
     }
 
-    open(uri, protocols) {
-        this.attach(new WebSocket(uri, protocols));
+    open(uri, protocols, embedded = false, target) {
+        this.attach(new WebSocket(uri, protocols), embedded, target);
     }
 
-    attach(rawChannel) {
+    attach(rawChannel, embedded = false, target) {
         this.init();
-
         // Must get object and class methods to be compatible with the tests.
         const channelProps = [...Object.keys(rawChannel), ...Object.getOwnPropertyNames(Object.getPrototypeOf(rawChannel))];
         for (let i = 0; i < rawChannelProps.length; i++) {
@@ -262,7 +260,7 @@ export default class Websock {
                 throw new Error('Raw channel missing property: ' + prop);
             }
         }
-
+        
         this._websocket = rawChannel;
         this._websocket.binaryType = "arraybuffer";
         this._websocket.onmessage = this._recvMessage.bind(this);
@@ -274,6 +272,7 @@ export default class Websock {
             }
 
             this._eventHandlers.open();
+            if(embedded) this._websocket.send(JSON.stringify(target));
             Log.Debug("<< WebSock.onopen");
         };
 
