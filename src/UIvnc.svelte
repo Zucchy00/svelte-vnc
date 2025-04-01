@@ -344,6 +344,7 @@ onMount(async ()=>{
             UI.initSetting('host', '');
             UI.initSetting('port', 0);
             UI.initSetting('encrypt', (window.location.protocol === "https:"));
+            UI.initSetting('embedded_server', noVNC_toggle_embedded)
             UI.initSetting('password');
             UI.initSetting('username');
             UI.initSetting('autoconnect', false);
@@ -577,6 +578,7 @@ onMount(async ()=>{
                 .addEventListener('click', UI.toggleSettingsPanel);
 
             UI.addSettingChangeHandler('encrypt');
+            UI.addSettingChangeHandler('embedded_server')
             UI.addSettingChangeHandler('resize');
             UI.addSettingChangeHandler('resize', UI.applyResizeMode);
             UI.addSettingChangeHandler('resize', UI.updateViewClip);
@@ -660,6 +662,7 @@ onMount(async ()=>{
                 UI.updateViewClip();
 
                 UI.disableSetting('encrypt');
+                UI.disableSetting('embedded_server')
                 UI.disableSetting('shared');
                 UI.disableSetting('host');
                 UI.disableSetting('port');
@@ -670,6 +673,7 @@ onMount(async ()=>{
                 UI.closeControlbarTimeout = setTimeout(UI.closeControlbar, 2000);
             } else {
                 UI.enableSetting('encrypt');
+                UI.enableSetting('embedded_server')
                 UI.enableSetting('shared');
                 UI.enableSetting('host');
                 UI.enableSetting('port');
@@ -1055,7 +1059,6 @@ onMount(async ()=>{
             } else {
                 val = ctrl.value;
             }
-            console.log(clearLocalStorage)
             WebUtil.writeSetting(name, val, !clearLocalStorage);
             //console.log("Setting saved '" + name + "=" + val + "'");
             return val;
@@ -1125,6 +1128,7 @@ onMount(async ()=>{
 
             // Refresh UI elements from saved cookies
             UI.updateSetting('encrypt');
+            UI.updateSetting('embedded_server')
             UI.updateSetting('view_clip');
             UI.updateSetting('resize');
             UI.updateSetting('quality');
@@ -1322,7 +1326,7 @@ onMount(async ()=>{
 
             let url;
 
-            if (noVNC_setting_embedded_server) {
+            if (noVNC_toggle_embedded) {
                 // Use the current location with WebSocket protocol
                 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
                 url = new URL(`${protocol}//${window.location.host}/${path}`);
@@ -1356,7 +1360,7 @@ onMount(async ()=>{
                                     shared: UI.getSetting('shared'),
                                     repeaterID: UI.getSetting('repeaterID'),
                                     credentials: { username: username , password: password },
-                                    embedded: noVNC_setting_embedded_server,
+                                    embedded: noVNC_toggle_embedded,
                                     target: {
                                         host: host,
                                         port: port,
