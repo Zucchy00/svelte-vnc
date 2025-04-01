@@ -50,6 +50,7 @@
     export let clearLocalStorage:boolean | null = null
     export let resize:string | null = null;
     export let embedded_server:boolean | null = null;
+    export let username:string | null = null
 
     // CONNECTION STATUS
     let connection_status:string = ""
@@ -127,7 +128,7 @@
     let settings = {
         logging, host, port, encrypt, password, autoconnect, view_clip,
         quality, compression, shared, bell, view_only, show_dot, path,
-        repeaterID, reconnect, reconnect_delay, controlbar_pos, resize
+        repeaterID, reconnect, reconnect_delay, controlbar_pos, resize, username
     };
 
     let defaults:any = {};
@@ -156,11 +157,10 @@
         if (Object.keys(settingsList).length === 0) {
             settingsList = { ...defaults };
         }
-
+        if(embedded_server) noVNC_setting_embedded_server = true
         await UI.start({ settings: { defaults: settingsList,
                 mandatory: mandatory } });
         if(isFullscreen) fullscreen(true)
-        if(embedded_server) noVNC_setting_embedded_server = true
     }
 
     function fullscreen(wantFullscreen: boolean) {

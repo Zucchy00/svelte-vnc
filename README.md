@@ -30,6 +30,7 @@ import NoVNC from "svelte-vnc"
 * host:string | null = null;
 * port:string | null= null;
 * encrypt:boolean | null = null;
+* username:string | null = null;
 * password:string | null = null;
 * autoconnect:boolean | null = null;
 * view_clip:boolean | null = null;
@@ -50,6 +51,7 @@ import NoVNC from "svelte-vnc"
 
 ## Change Log
 ### WORKING RELASE:
+* v2.0.4 Added Username parameter to full implement autoconnect
 * v2.0.2-2.0.3 Fixed Changelog and settings overlapping
 * v2.0.1 Fixed component parameters
 * v2.0.0 Embedded compability with local websockify server in hooks.server.ts [Github](https://github.com/Zucchy00/svelte-websockify)

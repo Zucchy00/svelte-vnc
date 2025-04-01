@@ -232,6 +232,7 @@ onMount(async ()=>{
         inhibitReconnect: true,
         reconnectCallback: null,
         reconnectPassword: null,
+        reconnectUsername: null,
 
         async start(options:any={}) {
             await loadModules()
@@ -344,6 +345,7 @@ onMount(async ()=>{
             UI.initSetting('port', 0);
             UI.initSetting('encrypt', (window.location.protocol === "https:"));
             UI.initSetting('password');
+            UI.initSetting('username');
             UI.initSetting('autoconnect', false);
             UI.initSetting('view_clip', false);
             UI.initSetting('resize', 'off');
@@ -1278,7 +1280,7 @@ onMount(async ()=>{
                 .classList.remove("noVNC_open");
         },
 
-        connect(event:any, password:any) {
+        connect(event:any, password:any, username:any) {
             // Ignore when rfb already exists
             if (typeof UI.rfb !== 'undefined') {
                 return;
@@ -1299,6 +1301,18 @@ onMount(async ()=>{
             if (password === null) {
                 password = undefined;
             }
+
+            if (typeof username === 'undefined') {
+                username = UI.getSetting('username');
+                UI.reconnectUsername = username;
+            }
+
+            if (username === null) {
+                username = undefined;
+            }
+
+            console.log(password)
+            console.log(username)
 
             UI.hideStatus();
 
@@ -1341,7 +1355,7 @@ onMount(async ()=>{
                                 { 
                                     shared: UI.getSetting('shared'),
                                     repeaterID: UI.getSetting('repeaterID'),
-                                    credentials: { password: password },
+                                    credentials: { username: username , password: password },
                                     embedded: noVNC_setting_embedded_server,
                                     target: {
                                         host: host,
@@ -1400,7 +1414,7 @@ onMount(async ()=>{
                 return;
             }
 
-            UI.connect(null, UI.reconnectPassword);
+            UI.connect(null, UI.reconnectPassword, UI.reconnectUsername);
         },
 
         cancelReconnect() {
@@ -1565,6 +1579,7 @@ onMount(async ()=>{
             inputElemPassword.value = "";
             UI.rfb.sendCredentials({ username: username, password: password });
             UI.reconnectPassword = password;
+            UI.reconnectUsername = username;
             noVNC_credentials_dlg
                 .classList.remove('noVNC_open');
         },
