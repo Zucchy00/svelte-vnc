@@ -50,6 +50,7 @@ import NoVNC from "svelte-vnc"
 
 ## Change Log
 ### WORKING RELASE:
+* v2.0.2-2.0.3 Fixed Changelog and settings overlapping
 * v2.0.1 Fixed component parameters
 * v2.0.0 Embedded compability with local websockify server in hooks.server.ts [Github](https://github.com/Zucchy00/svelte-websockify)
 * v1.2.5 Fixed Readme

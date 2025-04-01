@@ -207,8 +207,6 @@
     } 
 
     onMount(async()=>{
-        let response;
-
         // Default settings will be loaded from defaults.json. Mandatory
         // settings will be loaded from mandatory.json, which the user
         // cannot change
@@ -2297,6 +2295,7 @@ select[size]:not([size="1"]) option, select[multiple] option {
     bind:advanced_expander
     bind:websocket_expander
     bind:connection_status
+    bind:clearLocalStorage
 />
 
 <div class={`${className}`} style={style+" position: relative; overflow: hidden;"}>

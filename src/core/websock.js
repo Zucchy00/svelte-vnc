@@ -199,19 +199,27 @@ export default class Websock {
     }
 
     sQpushBytes(bytes) {
-        for (let offset = 0;offset < bytes.length;) {
+        // Ensure 'bytes' is a typed array (e.g., Uint8Array)
+        if (!(bytes instanceof Uint8Array)) {
+            // Convert to Uint8Array if it's not already
+            bytes = new Uint8Array(bytes);
+        }
+    
+        for (let offset = 0; offset < bytes.length;) {
             this._sQensureSpace(1);
-
+    
             let chunkSize = this._sQbufferSize - this._sQlen;
             if (chunkSize > bytes.length - offset) {
                 chunkSize = bytes.length - offset;
             }
-
+    
+            // Use subarray if it's a typed array
             this._sQ.set(bytes.subarray(offset, offset + chunkSize), this._sQlen);
             this._sQlen += chunkSize;
             offset += chunkSize;
         }
     }
+    
 
     flush() {
         if (this._sQlen > 0 && this.readyState === 'open') {

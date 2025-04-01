@@ -81,6 +81,7 @@ export let noVNC_setting_show_dot:any
 export let noVNC_setting_embedded_server:any
 export let advanced_expander:any
 export let websocket_expander:any
+export let clearLocalStorage:any
 
 let noVNC_variables:any = {}
 
@@ -115,7 +116,7 @@ async function loadModules() {
     const keyboardModule = await import("./core/input/keyboard.js");
     const rfbModule = await import("./core/rfb.js");
     // @ts-ignore
-    const webUtilModule = await import("./app/webutil.ts");
+    const { default: WebUtility } = await import("./app/webutil.ts");
 
     // Assign imported modules to variables
     _ = localizationModule.default;
@@ -137,7 +138,7 @@ async function loadModules() {
     keysyms = keySymDefModule.default;
     Keyboard = keyboardModule.default;
     RFB = rfbModule.default;
-    WebUtil = webUtilModule;
+    WebUtil = new WebUtility();
     noVNC_variables = {
         noVNC_status,
         noVNC_fullscreen_button,
@@ -278,7 +279,7 @@ onMount(async ()=>{
             }
 
             // Restore control bar position
-            if (WebUtil && WebUtil.readSetting('controlbar_pos') === 'right') {
+            if (WebUtil && WebUtil.readSetting('controlbar_pos') === 'right', !clearLocalStorage) {
                 UI.toggleControlbarSide();
             }
 
@@ -805,7 +806,7 @@ onMount(async ()=>{
 
             const anchor = noVNC_control_bar_anchor;
             if (anchor.classList.contains("noVNC_right")) {
-                WebUtil.writeSetting('controlbar_pos', 'left');
+                WebUtil.writeSetting('controlbar_pos', 'left', !clearLocalStorage);
                 anchor.classList.remove("noVNC_right");
                 bar.classList.remove("noVNC_right");
                 noVNC_control_bar_handle.classList.remove("noVNC_right");
@@ -813,7 +814,7 @@ onMount(async ()=>{
                 noVNC_clipboard.classList.remove("noVNC_right")
                 noVNC_settings.classList.remove("noVNC_right")
             } else {
-                WebUtil.writeSetting('controlbar_pos', 'right');
+                WebUtil.writeSetting('controlbar_pos', 'right', !clearLocalStorage);
                 anchor.classList.add("noVNC_right");
                 bar.classList.add("noVNC_right");
                 noVNC_control_bar_handle.classList.add("noVNC_right");
@@ -994,7 +995,7 @@ onMount(async ()=>{
             // Check Query string followed by cookie
             let val = WebUtil.getConfigVar(name);
             if (val === null) {
-                val = WebUtil.readSetting(name, defVal);
+                val = WebUtil.readSetting(name, !clearLocalStorage, defVal);
             }
             WebUtil.setSetting(name, val);
             UI.updateSetting(name);
@@ -1052,7 +1053,8 @@ onMount(async ()=>{
             } else {
                 val = ctrl.value;
             }
-            WebUtil.writeSetting(name, val);
+            console.log(clearLocalStorage)
+            WebUtil.writeSetting(name, val, !clearLocalStorage);
             //console.log("Setting saved '" + name + "=" + val + "'");
             return val;
         },
@@ -1061,7 +1063,7 @@ onMount(async ()=>{
         getSetting(name:any) {
             if(!WebUtil) return
             const ctrl:any = noVNC_variables['noVNC_setting_' + name];
-            let val = WebUtil.readSetting(name);
+            let val = WebUtil.readSetting(name, !clearLocalStorage);
             if (typeof val !== 'undefined' && val !== null &&
                 ctrl !== null && ctrl !== undefined && ctrl.type === 'checkbox') {
                 if (val.toString().toLowerCase() in {'0': 1, 'no': 1, 'false': 1}) {
@@ -1285,6 +1287,9 @@ onMount(async ()=>{
             const host = UI.getSetting('host');
             const port = UI.getSetting('port');
             const path = UI.getSetting('path');
+
+            console.log(host)
+            console.log(port)
 
             if (typeof password === 'undefined') {
                 password = UI.getSetting('password');
@@ -2066,5 +2071,8 @@ onMount(async ()=>{
         */
     };
 })
+
+
+// 
 
 </script>
