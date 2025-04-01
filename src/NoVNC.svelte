@@ -55,9 +55,6 @@
     // CONNECTION STATUS
     let connection_status:string = ""
 
-    //BRIGHTNESS
-    export let brightness = 100
-
     // ELEMENTS / SETTINGS
     let noVNC_status:any
     let noVNC_fallback_error:any
@@ -2450,10 +2447,6 @@ select[size]:not([size="1"]) option, select[multiple] option {
                                 <label for="noVNC_setting_compression">Compression level:</label>
                                 <input bind:this={noVNC_setting_compression} type="range" min="0" max="9" value="2">
                             </li>
-                            <li>
-                                <label>Brightness:</label>
-                                <input bind:value={brightness} type="range" min="0" max="200">
-                            </li>
                             <li><hr></li>
                             <li>
                                 <label for="noVNC_setting_repeaterID">Repeater ID:</label>
@@ -2620,7 +2613,7 @@ select[size]:not([size="1"]) option, select[multiple] option {
         </div>
     
         <!-- This is where the RFB elements will attach -->
-        <div bind:this={noVNC_container} style="filter: brightness({brightness/100})" class="noVNC_container">
+        <div bind:this={noVNC_container} class="noVNC_container">
             <!-- Note that Google Chrome on Android doesn't respect any of these,
                  html attributes which attempt to disable text suggestions on the
                  on-screen keyboard. Let's hope Chrome implements the ime-mode
