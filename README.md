@@ -51,6 +51,7 @@ import NoVNC from "svelte-vnc"
 
 ## Change Log
 ### WORKING RELASE:
+* v2.0.7 Fixed Brightness range bug
 * v2.0.6 Removed brightness bugging connect button :|
 * v2.0.5 Fixed embedded toggle and added brightness range
 * v2.0.4 Added Username parameter to full implement autoconnect
