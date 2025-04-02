@@ -48,9 +48,11 @@ import NoVNC from "svelte-vnc"
 * clearLocalStorage:boolean | null = null;
 * resize:string | null = null;
 * embedded_server:boolean | null = null;
+* brightness:number | null = 0 - 200;
 
 ## Change Log
 ### WORKING RELASE:
+* v2.0.9 Fixed Readme
 * v2.0.8 Added Brightness as export parameter
 * v2.0.7 Fixed Brightness range bug
 * v2.0.6 Removed brightness bugging connect button :|
