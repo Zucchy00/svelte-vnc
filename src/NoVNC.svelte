@@ -25,7 +25,7 @@
     let className="";
 
     //BRIGHTNESS
-    let brightness:number = 100
+    export let brightness:number = 100
 
     // UI HANDLER
     let UI:any
