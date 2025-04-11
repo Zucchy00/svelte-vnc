@@ -2541,16 +2541,6 @@ select[size]:not([size="1"]) option, select[multiple] option {
                 </div>
             </div>
         </div> <!-- End of noVNC_control_bar -->
-
-        <div class="noVNC_vcenter noVNC_hint_anchor left">
-            <div class="noVNC_control_bar_hint left" bind:this={noVNC_control_bar_hint_left}>
-            </div>
-        </div>
-
-        <div class="noVNC_vcenter noVNC_hint_anchor">
-            <div class="noVNC_control_bar_hint" bind:this={noVNC_control_bar_hint_right}>
-            </div>
-        </div>
     
         <!-- Status dialog -->
         <div bind:this={noVNC_status} class="noVNC_status"></div>
@@ -2634,6 +2624,17 @@ select[size]:not([size="1"]) option, select[multiple] option {
         <audio class="noVNC_bell" bind:this={noVNC_bell}>
             <source src={BellOga} type="audio/ogg">
             <source src={BellMp3} type="audio/mpeg">
-        </audio>   
+        </audio>
+
+        <div class="noVNC_vcenter noVNC_hint_anchor left">
+            <div class="noVNC_control_bar_hint left" bind:this={noVNC_control_bar_hint_left}>
+            </div>
+        </div>
+
+        <div class="noVNC_vcenter noVNC_hint_anchor">
+            <div class="noVNC_control_bar_hint" bind:this={noVNC_control_bar_hint_right}>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -52,6 +52,7 @@ import NoVNC from "svelte-vnc"
 
 ## Change Log
 ### WORKING RELASE:
+* v2.1.0 Fixed Hint anchor not showing when connected
 * v2.0.9 Fixed Readme
 * v2.0.8 Added Brightness as export parameter
 * v2.0.7 Fixed Brightness range bug
